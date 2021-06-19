@@ -49,14 +49,20 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         return $0
     }(UITableView(frame: .zero, style: .plain))
     
-    
+    private lazy var segmentView = HomeFeedSegmentView()
     
     // MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setUpViews()
+        setUpConstraints()
+        
         interactor?.makeRequest(request: .getFirstPosts)
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,4 +78,29 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         }
     }
     
+}
+
+// MARK: - Set Up Views
+extension HomeFeedViewController {
+    private func setUpViews() {
+        view.backgroundColor = .white
+        view.addSubview(segmentView)
+        view.addSubview(tableView)
+    }
+    
+    private func setUpConstraints() {
+        segmentView.anchor(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            leading: view.leadingAnchor,
+            bottom: nil,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 0, left: 0, bottom: 0, right: 0),
+            size: .init(width: 0, height: 50))
+        
+        tableView.anchor(
+            top: segmentView.bottomAnchor,
+            leading: view.leadingAnchor,
+            bottom: view.bottomAnchor,
+            trailing: view.trailingAnchor)
+    }
 }

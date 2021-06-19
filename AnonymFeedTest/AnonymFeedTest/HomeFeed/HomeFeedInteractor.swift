@@ -41,6 +41,7 @@ extension HomeFeedInteractor {
                     self?.showAlert(alertConfig: .init(title: "First Error", message: error.localizedDescription))
                 case .success(let apiData):
                     print("Api Model data",apiData)
+                    print("Count",apiData.data.items.count)
                     
                 }
             })
