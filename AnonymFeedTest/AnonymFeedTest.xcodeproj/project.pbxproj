@@ -18,6 +18,9 @@
 		05656B85267E16AB00F4CE92 /* HomeFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B7E267E16AB00F4CE92 /* HomeFeedViewController.swift */; };
 		05656B86267E16AB00F4CE92 /* HomeFeedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B7F267E16AB00F4CE92 /* HomeFeedInteractor.swift */; };
 		05656B8B267E17C800F4CE92 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B8A267E17C800F4CE92 /* APIModel.swift */; };
+		05656B8E267E188D00F4CE92 /* UIView+layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B8D267E188D00F4CE92 /* UIView+layout.swift */; };
+		05656B90267E18CA00F4CE92 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B8F267E18CA00F4CE92 /* APIService.swift */; };
+		05656B92267E18D400F4CE92 /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B91267E18D400F4CE92 /* ServiceLocator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		05656B7E267E16AB00F4CE92 /* HomeFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedViewController.swift; sourceTree = "<group>"; };
 		05656B7F267E16AB00F4CE92 /* HomeFeedInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedInteractor.swift; sourceTree = "<group>"; };
 		05656B8A267E17C800F4CE92 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
+		05656B8D267E188D00F4CE92 /* UIView+layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+layout.swift"; sourceTree = "<group>"; };
+		05656B8F267E18CA00F4CE92 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		05656B91267E18D400F4CE92 /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +72,7 @@
 		05656B61267E14B500F4CE92 /* AnonymFeedTest */ = {
 			isa = PBXGroup;
 			children = (
+				05656B8C267E184B00F4CE92 /* Extensions */,
 				05656B88267E17A500F4CE92 /* Services */,
 				05656B77267E15B100F4CE92 /* App */,
 				05656B78267E168900F4CE92 /* HomeFeed */,
@@ -118,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				05656B89267E17B900F4CE92 /* API */,
+				05656B91267E18D400F4CE92 /* ServiceLocator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -125,9 +133,18 @@
 		05656B89267E17B900F4CE92 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				05656B8F267E18CA00F4CE92 /* APIService.swift */,
 				05656B8A267E17C800F4CE92 /* APIModel.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		05656B8C267E184B00F4CE92 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				05656B8D267E188D00F4CE92 /* UIView+layout.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,12 +216,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05656B92267E18D400F4CE92 /* ServiceLocator.swift in Sources */,
 				05656B82267E16AB00F4CE92 /* HomeFeedWorker.swift in Sources */,
 				05656B8B267E17C800F4CE92 /* APIModel.swift in Sources */,
 				05656B84267E16AB00F4CE92 /* HomeFeedModels.swift in Sources */,
 				05656B85267E16AB00F4CE92 /* HomeFeedViewController.swift in Sources */,
+				05656B90267E18CA00F4CE92 /* APIService.swift in Sources */,
 				05656B63267E14B500F4CE92 /* AppDelegate.swift in Sources */,
 				05656B65267E14B500F4CE92 /* SceneDelegate.swift in Sources */,
+				05656B8E267E188D00F4CE92 /* UIView+layout.swift in Sources */,
 				05656B86267E16AB00F4CE92 /* HomeFeedInteractor.swift in Sources */,
 				05656B81267E16AB00F4CE92 /* HomeFeedPresenter.swift in Sources */,
 				05656B83267E16AB00F4CE92 /* HomeFeedRouter.swift in Sources */,
