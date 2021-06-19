@@ -45,7 +45,15 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     
     // MARK: - UI Elements
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        $0.startAnimating()
+        $0.color = .black
+        return $0
+    }(UIActivityIndicatorView(style: .medium))
+    
     private lazy var tableView: UITableView = {
+        $0.tableFooterView = activityIndicator
+        $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: HomeFeedTableViewCell.reusID)
         return $0
     }(UITableView(frame: .zero, style: .plain))
     
@@ -59,7 +67,8 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         setUpViews()
         setUpConstraints()
         
-        interactor?.makeRequest(request: .getFirstPosts)
+        fetchFirstPosts()
+        
     }
     
     
@@ -72,12 +81,29 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     func displayData(viewModel: HomeFeed.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .updateTable:
+            stopActivity()
             print("Update Table")
         case .showAlert(let alertConfig):
             showAlert(apiAlertConfig: alertConfig)
+            stopActivity()
         }
     }
     
+}
+
+// MARK: - Actions
+extension HomeFeedViewController {
+    private func fetchFirstPosts() {
+        startActivity()
+        interactor?.makeRequest(request: .getFirstPosts)
+    }
+    
+    private func startActivity() {
+        activityIndicator.startAnimating()
+    }
+    private func stopActivity() {
+        activityIndicator.stopAnimating()
+    }
 }
 
 // MARK: - Set Up Views

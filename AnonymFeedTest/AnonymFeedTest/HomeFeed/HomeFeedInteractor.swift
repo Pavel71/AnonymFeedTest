@@ -35,6 +35,7 @@ extension HomeFeedInteractor {
         case .getFirstPosts:
             print("Get Api Request")
             api?.fetch(from: .first(APIConstants.feedItemsCount), completion: {[weak self] result in
+                
                 switch result {
                 case .failure(let error):
                     print("Error show alert")
@@ -43,6 +44,7 @@ extension HomeFeedInteractor {
                     print("Api Model data",apiData)
                     print("Count",apiData.data.items.count)
                     
+                    self?.presenter?.presentData(response: .prepareHomeFeedModels)
                 }
             })
         }

@@ -24,6 +24,7 @@
 		05656B94267E226900F4CE92 /* APIAlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B93267E226900F4CE92 /* APIAlertConfig.swift */; };
 		05656B96267E234200F4CE92 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B95267E234200F4CE92 /* UIViewController+Extensions.swift */; };
 		05656B99267E25B200F4CE92 /* HomeFeedSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B98267E25B200F4CE92 /* HomeFeedSegmentView.swift */; };
+		05656B9B267E296E00F4CE92 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B9A267E296E00F4CE92 /* HomeFeedTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		05656B93267E226900F4CE92 /* APIAlertConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAlertConfig.swift; sourceTree = "<group>"; };
 		05656B95267E234200F4CE92 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		05656B98267E25B200F4CE92 /* HomeFeedSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedSegmentView.swift; sourceTree = "<group>"; };
+		05656B9A267E296E00F4CE92 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				05656B98267E25B200F4CE92 /* HomeFeedSegmentView.swift */,
+				05656B9A267E296E00F4CE92 /* HomeFeedTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				05656B94267E226900F4CE92 /* APIAlertConfig.swift in Sources */,
 				05656B8B267E17C800F4CE92 /* APIModel.swift in Sources */,
 				05656B84267E16AB00F4CE92 /* HomeFeedModels.swift in Sources */,
+				05656B9B267E296E00F4CE92 /* HomeFeedTableViewCell.swift in Sources */,
 				05656B85267E16AB00F4CE92 /* HomeFeedViewController.swift in Sources */,
 				05656B90267E18CA00F4CE92 /* APIService.swift in Sources */,
 				05656B63267E14B500F4CE92 /* AppDelegate.swift in Sources */,

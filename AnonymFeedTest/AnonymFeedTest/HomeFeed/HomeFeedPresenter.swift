@@ -19,6 +19,7 @@ class HomeFeedPresenter: HomeFeedPresentationLogic {
         switch response {
         case .prepareHomeFeedModels:
             print("Prepare Models")
+            viewController?.displayData(viewModel: .updateTable)
         case .showAlert(let alertConfig):
             viewController?.displayData(viewModel: .showAlert(alertConfig: alertConfig))
         }
