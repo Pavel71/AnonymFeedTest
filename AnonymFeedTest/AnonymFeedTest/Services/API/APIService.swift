@@ -45,17 +45,18 @@ enum Endpoint {
 
 class APIService {
     
-    func fetch<T: Codable>(from endPoint: Endpoint, completion: @escaping (T) -> ()) {
+    func fetch(from endPoint: Endpoint, completion: @escaping (Result<Welcome,Error>) -> ()) {
 
         guard let url = endPoint.absoluteURL else { return }
         print("URl",url)
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else { return }
             do {
-                let object = try JSONDecoder().decode(T.self, from: data)
-                completion(object)
+                let object = try JSONDecoder().decode(Welcome.self, from: data)
+                completion(.success(object))
             } catch let error as NSError {
                 print(error.userInfo)
+                completion(.failure(error))
             }
         }.resume()
     }

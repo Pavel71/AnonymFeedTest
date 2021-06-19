@@ -43,7 +43,11 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         router.viewController     = viewController
     }
     
-    // MARK: Routing
+    // MARK: - UI Elements
+    
+    private lazy var tableView: UITableView = {
+        return $0
+    }(UITableView(frame: .zero, style: .plain))
     
     
     
@@ -51,7 +55,7 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        interactor?.makeRequest(request: .getFirstPosts)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,7 +64,12 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     }
     
     func displayData(viewModel: HomeFeed.Model.ViewModel.ViewModelData) {
-        
+        switch viewModel {
+        case .updateTable:
+            print("Update Table")
+        case .showAlert(let alertConfig):
+            showAlert(apiAlertConfig: alertConfig)
+        }
     }
     
 }

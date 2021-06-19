@@ -15,12 +15,40 @@ protocol HomeFeedBusinessLogic {
 class HomeFeedInteractor: HomeFeedBusinessLogic {
 
   var presenter: HomeFeedPresentationLogic?
-  var service: HomeFeedService?
-  
-  func makeRequest(request: HomeFeed.Model.Request.RequestType) {
-    if service == nil {
-      service = HomeFeedService()
+  var api: APIService?
+    
+    init() {
+        api = ServiceLocator.shared.getService()
     }
-  }
   
+    func makeRequest(request: HomeFeed.Model.Request.RequestType) {
+        getAPIRequests(request: request)
+    }
+  
+}
+
+// MARK: Api
+extension HomeFeedInteractor {
+    
+    private func getAPIRequests(request: HomeFeed.Model.Request.RequestType) {
+        switch request {
+        case .getFirstPosts:
+            print("Get Api Request")
+            api?.fetch(from: .first(APIConstants.feedItemsCount), completion: {[weak self] result in
+                switch result {
+                case .failure(let error):
+                    print("Error show alert")
+                    self?.showAlert(alertConfig: .init(title: "First Error", message: error.localizedDescription))
+                case .success(let apiData):
+                    print("Api Model data",apiData)
+                    
+                }
+            })
+        }
+    }
+    
+    
+    private func showAlert(alertConfig: APIAlertConfig) {
+        presenter?.presentData(response: .showAlert(alertConfig: alertConfig))
+    }
 }

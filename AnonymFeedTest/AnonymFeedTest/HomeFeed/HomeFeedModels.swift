@@ -13,17 +13,19 @@ enum HomeFeed {
   enum Model {
     struct Request {
       enum RequestType {
-        case some
+        case getFirstPosts
       }
     }
     struct Response {
       enum ResponseType {
-        case some
+        case prepareHomeFeedModels
+        case showAlert(alertConfig: APIAlertConfig)
       }
     }
     struct ViewModel {
       enum ViewModelData {
-        case some
+        case updateTable
+        case showAlert(alertConfig: APIAlertConfig)
       }
     }
   }

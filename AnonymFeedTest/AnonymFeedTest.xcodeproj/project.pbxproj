@@ -21,6 +21,8 @@
 		05656B8E267E188D00F4CE92 /* UIView+layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B8D267E188D00F4CE92 /* UIView+layout.swift */; };
 		05656B90267E18CA00F4CE92 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B8F267E18CA00F4CE92 /* APIService.swift */; };
 		05656B92267E18D400F4CE92 /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B91267E18D400F4CE92 /* ServiceLocator.swift */; };
+		05656B94267E226900F4CE92 /* APIAlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B93267E226900F4CE92 /* APIAlertConfig.swift */; };
+		05656B96267E234200F4CE92 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B95267E234200F4CE92 /* UIViewController+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		05656B8D267E188D00F4CE92 /* UIView+layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+layout.swift"; sourceTree = "<group>"; };
 		05656B8F267E18CA00F4CE92 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		05656B91267E18D400F4CE92 /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
+		05656B93267E226900F4CE92 /* APIAlertConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAlertConfig.swift; sourceTree = "<group>"; };
+		05656B95267E234200F4CE92 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,7 @@
 			children = (
 				05656B8F267E18CA00F4CE92 /* APIService.swift */,
 				05656B8A267E17C800F4CE92 /* APIModel.swift */,
+				05656B93267E226900F4CE92 /* APIAlertConfig.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				05656B8D267E188D00F4CE92 /* UIView+layout.swift */,
+				05656B95267E234200F4CE92 /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -218,6 +224,7 @@
 			files = (
 				05656B92267E18D400F4CE92 /* ServiceLocator.swift in Sources */,
 				05656B82267E16AB00F4CE92 /* HomeFeedWorker.swift in Sources */,
+				05656B94267E226900F4CE92 /* APIAlertConfig.swift in Sources */,
 				05656B8B267E17C800F4CE92 /* APIModel.swift in Sources */,
 				05656B84267E16AB00F4CE92 /* HomeFeedModels.swift in Sources */,
 				05656B85267E16AB00F4CE92 /* HomeFeedViewController.swift in Sources */,
@@ -225,6 +232,7 @@
 				05656B63267E14B500F4CE92 /* AppDelegate.swift in Sources */,
 				05656B65267E14B500F4CE92 /* SceneDelegate.swift in Sources */,
 				05656B8E267E188D00F4CE92 /* UIView+layout.swift in Sources */,
+				05656B96267E234200F4CE92 /* UIViewController+Extensions.swift in Sources */,
 				05656B86267E16AB00F4CE92 /* HomeFeedInteractor.swift in Sources */,
 				05656B81267E16AB00F4CE92 /* HomeFeedPresenter.swift in Sources */,
 				05656B83267E16AB00F4CE92 /* HomeFeedRouter.swift in Sources */,

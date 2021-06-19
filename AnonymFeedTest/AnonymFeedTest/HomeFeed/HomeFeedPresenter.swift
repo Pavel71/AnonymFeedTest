@@ -9,14 +9,19 @@
 import UIKit
 
 protocol HomeFeedPresentationLogic {
-  func presentData(response: HomeFeed.Model.Response.ResponseType)
+    func presentData(response: HomeFeed.Model.Response.ResponseType)
 }
 
 class HomeFeedPresenter: HomeFeedPresentationLogic {
-  weak var viewController: HomeFeedDisplayLogic?
-  
-  func presentData(response: HomeFeed.Model.Response.ResponseType) {
-  
-  }
-  
+    weak var viewController: HomeFeedDisplayLogic?
+    
+    func presentData(response: HomeFeed.Model.Response.ResponseType) {
+        switch response {
+        case .prepareHomeFeedModels:
+            print("Prepare Models")
+        case .showAlert(let alertConfig):
+            viewController?.displayData(viewModel: .showAlert(alertConfig: alertConfig))
+        }
+    }
+    
 }
