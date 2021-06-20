@@ -290,6 +290,8 @@ class HomeFeedTableViewCell: UITableViewCell {
         gifImageView.isHidden = true
         gifImageView.image = nil
     }
+    
+    // MARK: - Set Up Views
     private func setUpViews() {
         contentView.addSubview(mainStackView)
         contentView.addSubview(audioButton)
@@ -440,15 +442,12 @@ extension HomeFeedTableViewCell {
                 contentImageView.downloadImageFrom(withUrl: $0.data?.small?.url ?? "")
                 contentImageView.isHidden = false
             case .imageGIF:
-                print("make UI Gif",$0.data?.original?.url)
                 if let urlStr = $0.data?.original?.url {
                     gifImageView.isHidden = false
                     
                     gifImageView.downloadImageGifFrom(withUrl: urlStr) {[weak self] image in
                         self?.gifImageView.image = image
                     }
-         
-                    
                     
                 }
                 
