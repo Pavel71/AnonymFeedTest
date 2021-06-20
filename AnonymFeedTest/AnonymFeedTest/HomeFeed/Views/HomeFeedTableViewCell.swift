@@ -36,6 +36,7 @@ class HomeFeedTableViewCell: UITableViewCell {
     
     
     private lazy var mainStackView: UIStackView = {
+        $0.axis = .vertical
         $0.distribution = .fill
         $0.alignment = .fill
         $0.spacing = 5
@@ -55,14 +56,15 @@ class HomeFeedTableViewCell: UITableViewCell {
     }(UIStackView())
     
     private lazy var bottomStackView: UIStackView = {
+        $0.axis = .horizontal
+        $0.distribution = .equalCentering
+        $0.alignment = .fill
         return $0
     }(UIStackView())
     
-//    private lazy var topStackView: UIStackView = {
-//        return $0
-//    }(UIStackView())
+
     
-    // For Top Stack View
+    // MARK: - USer UI
     private lazy var userImageView: ImageLoadedView = {
         
         $0.image = UIImage(systemName: "person.circle.fill")
@@ -81,85 +83,43 @@ class HomeFeedTableViewCell: UITableViewCell {
         return $0
     }(UILabel())
     
-    // For Bottom Stack View
+    // MARK: - Stats UI
     
     
-    private lazy var likesView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private lazy var commentsView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private lazy var sharesView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private lazy var viewsView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private lazy var likesImage: UIImageView = {
+    private lazy var likesImage: UIImageView = makeStatImageView(systemImagename: "hand.thumbsup")
+    private lazy var likesLabel: UILabel = makeStatLabel()
+    
+    private lazy var replayImage: UIImageView = makeStatImageView(systemImagename: "repeat")
+    private lazy var replayLabel: UILabel = makeStatLabel()
+    
+    private lazy var commentsImage: UIImageView = makeStatImageView(systemImagename: "bubble.right")
+    private lazy var commentsLabel: UILabel = makeStatLabel()
+    
+    private lazy var sharesImage: UIImageView = makeStatImageView(systemImagename: "square.and.arrow.up")
+    private lazy var sharesLabel: UILabel = makeStatLabel()
+    
+    private lazy var viewsImage: UIImageView = makeStatImageView(systemImagename: "eye")
+    private lazy var viewsLabel: UILabel = makeStatLabel()
+    
+    private func makeStatImageView(systemImagename: String) -> UIImageView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "like")
+        imageView.image = UIImage(systemName: systemImagename)
+        imageView.tintColor = .black
         return imageView
-    }()
-    private lazy var likesLabel: UILabel = {
+    }
+    
+    private func makeStatLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.secondaryLabel
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.lineBreakMode = .byClipping
         return label
-    }()
-    private lazy var commentsImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "comment")
-        return imageView
-    }()
-    private lazy var commentsLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.secondaryLabel
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.lineBreakMode = .byClipping
-        return label
-    }()
-    private lazy var sharesImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "share")
-        return imageView
-    }()
-    private lazy var sharesLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.secondaryLabel
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.lineBreakMode = .byClipping
-        return label
-    }()
-    private lazy var viewsImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "eye")
-        return imageView
-    }()
-    private lazy var viewsLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.secondaryLabel
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.lineBreakMode = .byClipping
-        return label
-    }()
+    }
+    
+    
+    // MARK: - Content UI
     private lazy var postViewContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -181,6 +141,8 @@ class HomeFeedTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
+    
+    // Need to make stats Stack View
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -213,6 +175,23 @@ class HomeFeedTableViewCell: UITableViewCell {
         
         topStackView.addArrangedSubview(userImageView)
         topStackView.addArrangedSubview(userNameLabel)
+        configureStatHStack()
+    }
+    
+    
+    private func configureStatHStack() {
+        let viewshStack = UIStackView(arrangedSubviews: [viewsImage,viewsLabel])
+        let likesStack = UIStackView(arrangedSubviews: [likesImage,likesLabel])
+        let commentStack = UIStackView(arrangedSubviews: [commentsImage,commentsLabel])
+        let shareStack = UIStackView(arrangedSubviews: [sharesImage,sharesLabel])
+        let repliesStack = UIStackView(arrangedSubviews: [replayImage,replayLabel])
+        
+        [viewshStack,likesStack,commentStack,shareStack,repliesStack].forEach {
+            $0.spacing = 5
+            bottomStackView.addArrangedSubview($0)
+        }
+        
+        
     }
 }
 
@@ -223,5 +202,12 @@ extension HomeFeedTableViewCell {
     func configure(model: HomeFeedTableViewCellModelable) {
         userNameLabel.text = model.userName
         userImageView.downloadImageFrom(withUrl: model.userImageUrl ?? "")
+        
+        viewsLabel.text = String(describing: model.stats?.views?.count ?? 0)
+        likesLabel.text = String(describing: model.stats?.likes?.count ?? 0)
+        commentsLabel.text = String(describing: model.stats?.comments?.count ?? 0)
+        replayLabel.text = String(describing: model.stats?.replies?.count ?? 0)
+        sharesLabel.text = String(describing: model.stats?.shares?.count ?? 0)
+
     }
 }

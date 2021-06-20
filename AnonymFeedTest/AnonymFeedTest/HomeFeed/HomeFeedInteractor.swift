@@ -63,7 +63,7 @@ extension HomeFeedInteractor {
             result in
             switch result {
             case .failure(let error):
-                print("Error",error)
+                
                 self?.showAlert(alertConfig: .init(title: "Some thing went wrong", message: error.localizedDescription))
             case .success(let apiData):
                 
