@@ -31,6 +31,7 @@
 		05656BA4267F44C600F4CE92 /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656BA3267F44C600F4CE92 /* UIScrollView+Extensions.swift */; };
 		05656BA6267F4DA700F4CE92 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656BA5267F4DA700F4CE92 /* APIError.swift */; };
 		05656BA8267F57BA00F4CE92 /* Sequency+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656BA7267F57BA00F4CE92 /* Sequency+Extensions.swift */; };
+		05656BAC267F99F000F4CE92 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656BAB267F99F000F4CE92 /* UIImageView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		05656BA3267F44C600F4CE92 /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
 		05656BA5267F4DA700F4CE92 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		05656BA7267F57BA00F4CE92 /* Sequency+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequency+Extensions.swift"; sourceTree = "<group>"; };
+		05656BAB267F99F000F4CE92 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				05656B95267E234200F4CE92 /* UIViewController+Extensions.swift */,
 				05656BA3267F44C600F4CE92 /* UIScrollView+Extensions.swift */,
 				05656BA7267F57BA00F4CE92 /* Sequency+Extensions.swift */,
+				05656BAB267F99F000F4CE92 /* UIImageView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				05656B8B267E17C800F4CE92 /* APIModel.swift in Sources */,
 				05656B84267E16AB00F4CE92 /* HomeFeedModels.swift in Sources */,
 				05656B9B267E296E00F4CE92 /* HomeFeedTableViewCell.swift in Sources */,
+				05656BAC267F99F000F4CE92 /* UIImageView+Extensions.swift in Sources */,
 				05656BA4267F44C600F4CE92 /* UIScrollView+Extensions.swift in Sources */,
 				05656B85267E16AB00F4CE92 /* HomeFeedViewController.swift in Sources */,
 				05656B9D267E331B00F4CE92 /* DataConverter.swift in Sources */,

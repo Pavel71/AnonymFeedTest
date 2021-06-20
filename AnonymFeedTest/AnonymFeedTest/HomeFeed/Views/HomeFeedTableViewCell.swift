@@ -30,7 +30,7 @@ class HomeFeedTableViewCell: UITableViewCell {
     // vido
     // stats
     // like button
-    
+    var dispatchGroup = DispatchGroup()
     private lazy var player: AVPlayer =  {
         
         return $0
@@ -230,6 +230,12 @@ class HomeFeedTableViewCell: UITableViewCell {
         return layer
     }()
     
+    private lazy var gifImageView: ImageLoadedView = {
+        $0.constrainHeight(constant: 250)
+        $0.isHidden = true
+        return $0
+    }(ImageLoadedView())
+    
     
     
     // Need to make stats Stack View
@@ -280,6 +286,9 @@ class HomeFeedTableViewCell: UITableViewCell {
         previewVideoImage.isHidden = true
         
         NotificationCenter.default.removeObserver(self)
+        
+        gifImageView.isHidden = true
+        gifImageView.image = nil
     }
     private func setUpViews() {
         contentView.addSubview(mainStackView)
@@ -309,6 +318,7 @@ class HomeFeedTableViewCell: UITableViewCell {
     }
     
     private func configureContentStack() {
+        contentStackView.addArrangedSubview(gifImageView)
         contentStackView.addArrangedSubview(videoView)
         contentStackView.addArrangedSubview(contentImageView)
         contentStackView.addArrangedSubview(contentlabel)
@@ -430,11 +440,21 @@ extension HomeFeedTableViewCell {
                 contentImageView.downloadImageFrom(withUrl: $0.data?.small?.url ?? "")
                 contentImageView.isHidden = false
             case .imageGIF:
-                print("make UI Gif")
+                print("make UI Gif",$0.data?.original?.url)
+                if let urlStr = $0.data?.original?.url {
+                    gifImageView.isHidden = false
+                    
+                    gifImageView.downloadImageGifFrom(withUrl: urlStr) {[weak self] image in
+                        self?.gifImageView.image = image
+                    }
+         
+                    
+                    
+                }
+                
             case .tags:
                 taglabel.isHidden  = false
                 taglabel.text = $0.data?.value ?? ""
-                print("Make Ui Tag")
             case .text:
                 
                 let oldtext = contentlabel.text ?? ""
@@ -458,10 +478,6 @@ extension HomeFeedTableViewCell {
                     previewVideoImage.downloadImageFrom(withUrl: url)
                 }
                 
-//                if let url = URL(string: videoUrl) {
-//                    playVideo(url: url)
-//                }
-            print("make Ui Video")
             case .none:
                 break
             }
@@ -477,3 +493,4 @@ extension HomeFeedTableViewCell {
 
     }
 }
+

@@ -37,4 +37,33 @@ class ImageLoadedView: UIImageView {
             }
         }).resume()
     }
+    
+    func downloadImageGifFrom(withUrl urlString : String, completion: @escaping (UIImage?) -> Void) {
+        imageUrlString = urlString
+
+        guard let url = URL(string: urlString) else { return }
+        image = nil
+
+        if let cachedImage = imageCache.object(forKey: urlString as NSString) {
+            image = cachedImage
+            return
+        }
+
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            guard let data = data else { return }
+            
+            guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
+                print("image doesn't exist")
+                completion(nil)
+                return
+            }
+            RunLoop.main.perform(inModes: [.common]) {
+                let image = UIImage.animatedImageWithSource(source: source) ?? UIImage()
+                imageCache.setObject(image, forKey: urlString as NSString)
+                completion(image)
+            }
+            
+            
+        }).resume()
+    }
 }
