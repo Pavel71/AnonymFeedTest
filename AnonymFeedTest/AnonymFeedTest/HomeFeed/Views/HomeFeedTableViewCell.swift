@@ -31,9 +31,14 @@ class HomeFeedTableViewCell: UITableViewCell {
     // stats
     // like button
     
-    private lazy var player = AVPlayer(playerItem: nil)
+    private lazy var player: AVPlayer =  {
+        
+        return $0
+    }(AVPlayer(playerItem: nil))
     private var audioUrl: String = ""
-    
+    private var videoUrl: String = ""
+    private var previewVideoImageUrl = ""
+    private var lastPlayerItem: AVPlayerItem?
     
     private lazy var mainStackView: UIStackView = {
         $0.axis = .vertical
@@ -161,6 +166,18 @@ class HomeFeedTableViewCell: UITableViewCell {
         return $0
     }(UILabel())
     
+    private lazy var taglabel: UILabel = {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = UIColor.systemBlue
+        $0.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+        $0.lineBreakMode = .byClipping
+        $0.numberOfLines = 0
+        $0.textAlignment = .left
+        $0.isHidden = true
+        return $0
+    }(UILabel())
+    
     
     private lazy var audioButton: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -172,19 +189,52 @@ class HomeFeedTableViewCell: UITableViewCell {
         return $0
     }(UIButton(type: .system))
     
+    private lazy var videoButton: UIButton = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+        $0.setTitle("Video Play", for: .normal)
+        $0.tintColor = .white
+        $0.isHidden = true
+        $0.isUserInteractionEnabled = true
+        return $0
+    }(UIButton(type: .system))
     
-    private lazy  var postViewVideoView: AVPlayerLayer = {
+    private lazy var videoView: UIView = {
+        $0.constrainHeight(constant: 250)
+        
+        $0.layer.addSublayer(postViewVideoLayer)
+        $0.addSubview(previewVideoImage)
+        previewVideoImage.fillSuperview()
+        $0.addSubview(videoButton)
+        videoButton.centerInSuperview()
+        $0.isHidden = true
+        $0.backgroundColor = .lightGray
+        return $0
+    }(UIView())
+    
+    private lazy var previewVideoImage: ImageLoadedView = {
+        
+        $0.constrainHeight(constant: 250)
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
+        $0.layer.cornerRadius = 10
+        $0.tintColor = .black
+        $0.isHidden = true
+        return $0
+    }(ImageLoadedView())
+    
+    
+    private lazy  var postViewVideoLayer: AVPlayerLayer = {
         let layer = AVPlayerLayer(player: self.player)
         layer.videoGravity = .resizeAspectFill
         return layer
     }()
     
-    // MARK: - Outputs
-    
-//    var didTapPlayAuido: (() -> Void)?
     
     
     // Need to make stats Stack View
+    
+    // MARK: - INit
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -192,12 +242,14 @@ class HomeFeedTableViewCell: UITableViewCell {
         setUpConstraints()
         self.selectionStyle = .none
         audioButton.addTarget(self, action: #selector(handleAudioTapped), for: .touchUpInside)
+        videoButton.addTarget(self, action: #selector(handleVideoButton), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Prepare for reuse
     override func prepareForReuse() {
         super.prepareForReuse()
    
@@ -218,6 +270,16 @@ class HomeFeedTableViewCell: UITableViewCell {
         
         audioButton.isHidden = true
         audioUrl = ""
+        
+        taglabel.text = nil
+        
+        videoView.isHidden = true
+        videoUrl = ""
+        previewVideoImageUrl = ""
+        videoButton.isHidden = true
+        previewVideoImage.isHidden = true
+        
+        NotificationCenter.default.removeObserver(self)
     }
     private func setUpViews() {
         contentView.addSubview(mainStackView)
@@ -247,10 +309,10 @@ class HomeFeedTableViewCell: UITableViewCell {
     }
     
     private func configureContentStack() {
-        
+        contentStackView.addArrangedSubview(videoView)
         contentStackView.addArrangedSubview(contentImageView)
         contentStackView.addArrangedSubview(contentlabel)
-       
+        contentStackView.addArrangedSubview(taglabel)
     }
     
     private func configureStatHStack() {
@@ -268,6 +330,12 @@ class HomeFeedTableViewCell: UITableViewCell {
         
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        postViewVideoLayer.frame = videoView.bounds
+    }
+    
     
 }
 
@@ -279,42 +347,62 @@ extension HomeFeedTableViewCell {
         switch player.timeControlStatus {
         case .paused:
             print("need Activate and play")
-            if let url = URL(string: audioUrl) {
-                play(url: url)
-                audioButton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
-                player.play()
-            }
-            
+            player.play()
+            audioButton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
         case .playing:
             print("need set pause")
             audioButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
             player.pause()
         case .waitingToPlayAtSpecifiedRate:
             print("HS")
+        
         }
         
+    }
+    
+    @objc private func handleVideoButton() {
+        print("Vidoe Tapped")
+        switch player.timeControlStatus {
+        case .paused:
+            print("need Activate and play")
+            player.play()
+            videoButton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
         
+            previewVideoImage.isHidden = true
+
+        case .playing:
+            print("need set pause")
+            videoButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+            previewVideoImage.isHidden = false
+            player.pause()
+        case .waitingToPlayAtSpecifiedRate:
+            print("HS")
+       
+        }
     }
         
 }
 
 //MARK: - Player
 extension HomeFeedTableViewCell {
-    func play(url: URL) {
-        print("playing \(url)")
+    func prepareDownload(url: URL) {
+        
+        
+        lastPlayerItem = AVPlayerItem(url: url)
+        player.replaceCurrentItem(with: lastPlayerItem)
+        player.volume = 1.0
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(sender:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: lastPlayerItem)
+    }
 
-        do {
-            let playerItem = AVPlayerItem(url: url)
+    func stopPlayer() {
+        player.replaceCurrentItem(with: nil)
+    }
 
-            self.player = try AVPlayer(playerItem:playerItem)
-            player.volume = 1.0
-            player.play()
-        } catch let error as NSError {
-            self.player = AVPlayer(playerItem: nil)
-            print(error.localizedDescription)
-        } catch {
-            print("AVAudioPlayer init failed")
-        }
+    @objc func playerDidFinishPlaying(sender: Notification) {
+
+        player.seek(to: .zero)
+        [audioButton,videoButton].forEach { $0.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)}
     }
 }
 
@@ -332,15 +420,20 @@ extension HomeFeedTableViewCell {
             // Need to place content in vertical stack view
             switch $0.type {
             case .audio:
-                print("make UI Audio")
                 audioUrl = $0.data?.url ?? ""
                 audioButton.isHidden = false
+                
+                if let url = URL(string: $0.data?.url ?? "" ) {
+                    prepareDownload(url: url)
+                }
             case .image:
                 contentImageView.downloadImageFrom(withUrl: $0.data?.small?.url ?? "")
                 contentImageView.isHidden = false
             case .imageGIF:
                 print("make UI Gif")
             case .tags:
+                taglabel.isHidden  = false
+                taglabel.text = $0.data?.value ?? ""
                 print("Make Ui Tag")
             case .text:
                 
@@ -349,6 +442,25 @@ extension HomeFeedTableViewCell {
                 contentlabel.text = oldtext + "\n" + newText
                 contentlabel.isHidden = false
             case .video:
+                videoView.isHidden = false
+                
+                videoUrl = $0.data?.url ?? ""
+                
+                if let videoUrl = URL(string: $0.data?.url ?? "" ) {
+                    prepareDownload(url: videoUrl)
+                }
+                
+                videoButton.isHidden = false
+                
+                if let url =  $0.data?.previewImage?.data?.medium?.url {
+                    previewVideoImageUrl = url
+                    previewVideoImage.isHidden = false
+                    previewVideoImage.downloadImageFrom(withUrl: url)
+                }
+                
+//                if let url = URL(string: videoUrl) {
+//                    playVideo(url: url)
+//                }
             print("make Ui Video")
             case .none:
                 break
