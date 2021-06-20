@@ -50,16 +50,35 @@ class APIService {
         guard let url = endPoint.absoluteURL else { return }
         print("URl",url)
         URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else { return }
-            RunLoop.main.perform(inModes: [.common]) {
-                do {
-                    let object = try JSONDecoder().decode(Welcome.self, from: data)
-                    completion(.success(object))
-                } catch let error as NSError {
-                    print(error.userInfo)
-                    completion(.failure(error))
+            print("Data",data)
+            print("Error",error)
+            print("Response",response)
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  200...299 ~= httpResponse.statusCode else {
+                let error = APIError.responseError(((response as? HTTPURLResponse)?.statusCode ?? 500,
+                                                    String(data: data!, encoding: .utf8) ?? ""))
+                RunLoop.main.perform(inModes: [.common]) {
+                     completion(.failure(error))
                 }
+                return
+               
             }
+            
+            if let data = data {
+                RunLoop.main.perform(inModes: [.common]) {
+                    do {
+                        let object = try JSONDecoder().decode(Welcome.self, from: data)
+                        completion(.success(object))
+                    } catch let error as NSError {
+                        print(error.userInfo)
+                        completion(.failure(error))
+                    }
+                }
+            } else if let err = error {
+                completion(.failure(err))
+            }
+            
             
         }.resume()
     }

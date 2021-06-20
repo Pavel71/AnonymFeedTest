@@ -8,11 +8,11 @@
 import UIKit
 // MARK: - Show Alert
 extension UIViewController {
-    func showAlert(apiAlertConfig: APIAlertConfig) {
+    func showAlert(apiAlertConfig: APIAlertConfig,okHandler: (((UIAlertAction)) -> Void)? = nil) {
       
         let alertControlelr = UIAlertController(title: apiAlertConfig.title, message: apiAlertConfig.message, preferredStyle: .alert)
         
-      let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+      let alertAction = UIAlertAction(title: "Ok", style: .default, handler: okHandler)
         
       
       alertControlelr.addAction(alertAction)

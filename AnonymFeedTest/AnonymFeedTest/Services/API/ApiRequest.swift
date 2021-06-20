@@ -9,5 +9,5 @@ import Foundation
 
 
 struct ApiRequest {
-    var cursor: String = ""
+    var cursor: String? 
 }

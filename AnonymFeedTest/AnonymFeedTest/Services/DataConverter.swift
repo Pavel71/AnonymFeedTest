@@ -15,11 +15,11 @@ class DataConverter {
     static func toHomeFeedTableCellModel(item: Item) -> HomeFeedTableViewCellModel {
         let author = item.author
         return .init(
-            id: item.id,
-            userName: author?.name,
-            userImageUrl: author?.banner?.data.extraSmall.url,
-            contents: item.contents,
+            id: item.id ?? UUID().uuidString,
+            userName: author?.name ?? "",
+            userImageUrl: author?.banner?.data?.extraSmall?.url ?? "",
+            contents: item.contents ?? [],
             stats: item.stats,
-            isMyFavorit: item.isMyFavorite)
+            isMyFavorit: item.isMyFavorite ?? false)
     }
 }

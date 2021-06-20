@@ -13,7 +13,7 @@ protocol HomeFeedTableViewCellModelable {
     var userImageUrl: String? { get }
     var contents: [Content] { get }
     
-    var stats: Stats { get }
+    var stats: Stats? { get }
     var isMyFavorit: Bool { get }
 }
 

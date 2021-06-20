@@ -25,6 +25,8 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     
     // MARK: Object lifecycle
     
+    var isFetching = false
+    
     init() {
         super.init(nibName: nil, bundle: nil)
         setup()
@@ -61,6 +63,7 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     private lazy var dataSource = makeDataSource()
     
     private lazy var tableView: UITableView = {
+        $0.delegate = self
         $0.estimatedRowHeight = 100
         $0.rowHeight = UITableView.automaticDimension
         $0.tableFooterView = activityIndicator
@@ -98,8 +101,13 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         case .updateTable(let models):
             stopActivity()
             updateSnapShot(data: models)
+            
         case .showAlert(let alertConfig):
-            showAlert(apiAlertConfig: alertConfig)
+            showAlert(apiAlertConfig: alertConfig) {[weak self] okAction in
+                self?.stopActivity()
+            }
+            
+        case .stopActivity:
             stopActivity()
         }
     }
@@ -117,6 +125,7 @@ extension HomeFeedViewController {
         activityIndicator.startAnimating()
     }
     private func stopActivity() {
+        self.isFetching = false
         activityIndicator.stopAnimating()
     }
 }
@@ -175,4 +184,32 @@ extension HomeFeedViewController {
         
         dataSource.apply(snapShot)
     }
+}
+
+
+// MARK: - TableView Delgate
+extension HomeFeedViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
+    // MARK: - Scroll View
+
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        if scrollView.isNearBottomEdge(edgeOffset: 20) {
+
+            if  self.isFetching == false {
+                startActivity()
+                self.isFetching = true
+
+                print("Fetching new page")
+                interactor?.makeRequest(request: .getAfterPosts)
+            }
+
+        }
+    }
+    
 }

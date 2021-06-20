@@ -14,18 +14,21 @@ enum HomeFeed {
     struct Request {
       enum RequestType {
         case getFirstPosts
+        case getAfterPosts
       }
     }
     struct Response {
       enum ResponseType {
         case prepareHomeFeedModels(items: [Item])
         case showAlert(alertConfig: APIAlertConfig)
+        case stopActivity
       }
     }
     struct ViewModel {
       enum ViewModelData {
         case updateTable(cellModels: [HomeFeedTableViewCellModel])
         case showAlert(alertConfig: APIAlertConfig)
+        case stopActivity
       }
     }
   }
@@ -45,7 +48,7 @@ struct HomeFeedTableViewCellModel: HomeFeedTableViewCellModelable {
     
     var contents: [Content]
     
-    var stats: Stats
+    var stats: Stats?
     
     var isMyFavorit: Bool
     

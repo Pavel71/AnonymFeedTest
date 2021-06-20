@@ -15,13 +15,18 @@ protocol HomeFeedPresentationLogic {
 class HomeFeedPresenter: HomeFeedPresentationLogic {
     weak var viewController: HomeFeedDisplayLogic?
     
+    
+    var tableData: [HomeFeedTableViewCellModel] = []
+    
     func presentData(response: HomeFeed.Model.Response.ResponseType) {
         switch response {
         case .prepareHomeFeedModels(let apiItems):
-            let models = apiItems.map(DataConverter.toHomeFeedTableCellModel(item:))
-            viewController?.displayData(viewModel: .updateTable(cellModels: models))
+            tableData.append(contentsOf: apiItems.map(DataConverter.toHomeFeedTableCellModel(item:)))
+            viewController?.displayData(viewModel: .updateTable(cellModels: tableData))
         case .showAlert(let alertConfig):
             viewController?.displayData(viewModel: .showAlert(alertConfig: alertConfig))
+        case .stopActivity:
+            viewController?.displayData(viewModel: .stopActivity)
         }
     }
     

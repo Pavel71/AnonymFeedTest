@@ -36,19 +36,36 @@ extension HomeFeedInteractor {
         switch request {
         case .getFirstPosts:
             print("Get Api Request")
-            api?.fetch(from: .first(APIConstants.feedItemsCount), completion: {[weak self]
-                result in
-                switch result {
-                case .failure(let error):
-                    
-                    self?.showAlert(alertConfig: .init(title: "First Error", message: error.localizedDescription))
-                case .success(let apiData):
-        
-                    self?.apiRequest.cursor = apiData.data.cursor
-                    self?.presenter?.presentData(response: .prepareHomeFeedModels(items: apiData.data.items))
-                }
-            })
+          fetch(endPoint: .first(APIConstants.feedItemsCount))
+            
+        case .getAfterPosts:
+            
+            if let cursore = apiRequest.cursor {
+                print("Get After Posts",cursore)
+                fetch(endPoint: .after(cursore))
+            } else {
+                presenter?.presentData(response: .stopActivity)
+            }
+            
         }
+    }
+    
+    private func fetch(endPoint: Endpoint) {
+        api?.fetch(from: endPoint , completion: {[weak self]
+            result in
+            switch result {
+            case .failure(let error):
+                print("Error",error)
+                self?.showAlert(alertConfig: .init(title: "Some thing went wrong", message: error.localizedDescription))
+            case .success(let apiData):
+                
+                if let data = apiData.data {
+                    self?.apiRequest.cursor = data.cursor
+                    self?.presenter?.presentData(response: .prepareHomeFeedModels(items: data.items ?? []))
+                }
+                
+            }
+        })
     }
     
     

@@ -7,33 +7,33 @@ import Foundation
 
 // MARK: - Welcome
 struct Welcome: Codable {
-    let data: WelcomeData
+    let data: WelcomeData?
 }
 
 // MARK: - WelcomeData
 struct WelcomeData: Codable {
-    let items: [Item]
-    let cursor: String
+    let items: [Item]?
+    let cursor: String?
 }
 
 // MARK: - Item
 struct Item: Codable {
-    let id: String
+    let id: String?
     let isCreatedByPage: Bool?
     let videoElementID: JSONNull?
-    let status: Status
-    let type: ItemType
+    let status: Status?
+    let type: ItemType?
     let coordinates: Coordinates?
-    let isCommentable, hasAdultContent, isAuthorHidden, isHiddenInProfile: Bool
-    let contents: [Content]
-    let language: Language
-    let awards: Awards
-    let createdAt, updatedAt: Int
-    let isSecret: Bool
+    let isCommentable, hasAdultContent, isAuthorHidden, isHiddenInProfile: Bool?
+    let contents: [Content]?
+    let language: Language?
+    let awards: Awards?
+    let createdAt, updatedAt: Int?
+    let isSecret: Bool?
     let page: JSONNull?
     let author: Author?
-    let stats: Stats
-    let isMyFavorite: Bool
+    let stats: Stats?
+    let isMyFavorite: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id, isCreatedByPage
@@ -44,54 +44,51 @@ struct Item: Codable {
 
 // MARK: - Author
 struct Author: Codable {
-    let id: String
-    let url: URLEnum?
-    let name: String
-    let banner: Photo?
-    let photo: Photo
-    let gender: Gender
-    let isHidden, isBlocked, allowNewSubscribers, showSubscriptions: Bool
-    let showSubscribers, isMessagingAllowed: Bool
-    let auth: Auth
-    let statistics: Statistics
-    let tagline: String
-    let data: AuthorData
+    let id: String?
+    let url: String?
+    let name: String?
+    let banner, photo: Banner?
+    let gender: Gender?
+    let isHidden, isBlocked, allowNewSubscribers, showSubscriptions: Bool?
+    let showSubscribers, isMessagingAllowed: Bool?
+    let auth: Auth?
+    let statistics: Statistics?
+    let tagline: String?
+    let data: AuthorData?
     let photoSpecialStyle, photoSpecialVariant, nameSpecialStyle: Int?
 }
 
 // MARK: - Auth
 struct Auth: Codable {
-    let isDisabled: Bool
-    let lastSeenAt, level: Int
+    let isDisabled: Bool?
+    let lastSeenAt, level: Int?
 }
 
-// MARK: - Photo
-struct Photo: Codable {
-    let type: PhotoType
-    let id: String
-    let data: PhotoData
+// MARK: - Banner
+struct Banner: Codable {
+    let type: BannerType?
+    let id: String?
+    let data: BannerData?
 }
 
-// MARK: - PhotoData
-struct PhotoData: Codable {
-    let extraSmall, small: ExtraLarge
-    let medium, large: ExtraLarge?
-    let original: ExtraLarge
-    let extraLarge: ExtraLarge?
+// MARK: - BannerData
+struct BannerData: Codable {
+    let extraSmall, small, medium, large: ExtraLarge?
+    let original, extraLarge: ExtraLarge?
 }
 
 // MARK: - ExtraLarge
 struct ExtraLarge: Codable {
-    let url: String
-    let size: Size
+    let url: String?
+    let size: Size?
 }
 
 // MARK: - Size
 struct Size: Codable {
-    let width, height: Int
+    let width, height: Int?
 }
 
-enum PhotoType: String, Codable {
+enum BannerType: String, Codable {
     case audio = "AUDIO"
     case image = "IMAGE"
     case imageGIF = "IMAGE_GIF"
@@ -106,33 +103,36 @@ struct AuthorData: Codable {
 
 enum Gender: String, Codable {
     case male = "MALE"
+    case other = "OTHER"
     case unset = "UNSET"
 }
 
 // MARK: - Statistics
 struct Statistics: Codable {
-    let likes: Int
-    let thanks: Double
-    let uniqueName: Bool
-    let thanksNextLevel, subscribersCount, subscriptionsCount: Int
-}
-
-enum URLEnum: String, Codable {
-    case jeditones = "jeditones"
-    case jonathanl = "jonathanl"
+    let likes: Int?
+    let thanks: Double?
+    let uniqueName: Bool?
+    let thanksNextLevel, subscribersCount, subscriptionsCount: Int?
 }
 
 // MARK: - Awards
 struct Awards: Codable {
-    let recent, statistics: [JSONAny]
-    let voices: Int
-    let awardedByMe: Bool
+    let recent: [String]?
+    let statistics: [Statistic]?
+    let voices: Double?
+    let awardedByMe: Bool?
+}
+
+// MARK: - Statistic
+struct Statistic: Codable {
+    let id: String?
+    let count: Int?
 }
 
 // MARK: - Content
 struct Content: Codable {
-    let data: ContentData
-    let type: PhotoType
+    let data: ContentData?
+    let type: BannerType?
     let id: String?
 }
 
@@ -150,20 +150,20 @@ struct ContentData: Codable {
 
 // MARK: - PreviewImage
 struct PreviewImage: Codable {
-    let type: PhotoType
-    let id: String
-    let data: PreviewImageData
+    let type: BannerType?
+    let id: String?
+    let data: PreviewImageData?
 }
 
 // MARK: - PreviewImageData
 struct PreviewImageData: Codable {
-    let extraSmall, medium: ExtraLarge
+    let extraSmall, medium: ExtraLarge?
 }
 
 // MARK: - Coordinates
 struct Coordinates: Codable {
-    let latitude, longitude: Double
-    let zoom: JSONNull?
+    let latitude, longitude: Double?
+    let zoom: Int?
 }
 
 enum Language: String, Codable {
@@ -173,22 +173,22 @@ enum Language: String, Codable {
 
 // MARK: - Stats
 struct Stats: Codable {
-    let likes, views, comments, shares: Comments
-    let replies: Comments
-    let timeLeftToSpace: TimeLeftToSpace
+    let likes, views, comments, shares: Comments?
+    let replies: Comments?
+    let timeLeftToSpace: TimeLeftToSpace?
 }
 
 // MARK: - Comments
 struct Comments: Codable {
-    let count: Int
-    let my: Bool
+    let count: Int?
+    let my: Bool?
 }
 
 // MARK: - TimeLeftToSpace
 struct TimeLeftToSpace: Codable {
     let count: Int?
     let maxCount: JSONNull?
-    let my: Bool
+    let my: Bool?
 }
 
 enum Status: String, Codable {
@@ -226,220 +226,5 @@ class JSONNull: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encodeNil()
-    }
-}
-
-class JSONCodingKey: CodingKey {
-    let key: String
-
-    required init?(intValue: Int) {
-        return nil
-    }
-
-    required init?(stringValue: String) {
-        key = stringValue
-    }
-
-    var intValue: Int? {
-        return nil
-    }
-
-    var stringValue: String {
-        return key
-    }
-}
-
-class JSONAny: Codable {
-
-    let value: Any
-
-    static func decodingError(forCodingPath codingPath: [CodingKey]) -> DecodingError {
-        let context = DecodingError.Context(codingPath: codingPath, debugDescription: "Cannot decode JSONAny")
-        return DecodingError.typeMismatch(JSONAny.self, context)
-    }
-
-    static func encodingError(forValue value: Any, codingPath: [CodingKey]) -> EncodingError {
-        let context = EncodingError.Context(codingPath: codingPath, debugDescription: "Cannot encode JSONAny")
-        return EncodingError.invalidValue(value, context)
-    }
-
-    static func decode(from container: SingleValueDecodingContainer) throws -> Any {
-        if let value = try? container.decode(Bool.self) {
-            return value
-        }
-        if let value = try? container.decode(Int64.self) {
-            return value
-        }
-        if let value = try? container.decode(Double.self) {
-            return value
-        }
-        if let value = try? container.decode(String.self) {
-            return value
-        }
-        if container.decodeNil() {
-            return JSONNull()
-        }
-        throw decodingError(forCodingPath: container.codingPath)
-    }
-
-    static func decode(from container: inout UnkeyedDecodingContainer) throws -> Any {
-        if let value = try? container.decode(Bool.self) {
-            return value
-        }
-        if let value = try? container.decode(Int64.self) {
-            return value
-        }
-        if let value = try? container.decode(Double.self) {
-            return value
-        }
-        if let value = try? container.decode(String.self) {
-            return value
-        }
-        if let value = try? container.decodeNil() {
-            if value {
-                return JSONNull()
-            }
-        }
-        if var container = try? container.nestedUnkeyedContainer() {
-            return try decodeArray(from: &container)
-        }
-        if var container = try? container.nestedContainer(keyedBy: JSONCodingKey.self) {
-            return try decodeDictionary(from: &container)
-        }
-        throw decodingError(forCodingPath: container.codingPath)
-    }
-
-    static func decode(from container: inout KeyedDecodingContainer<JSONCodingKey>, forKey key: JSONCodingKey) throws -> Any {
-        if let value = try? container.decode(Bool.self, forKey: key) {
-            return value
-        }
-        if let value = try? container.decode(Int64.self, forKey: key) {
-            return value
-        }
-        if let value = try? container.decode(Double.self, forKey: key) {
-            return value
-        }
-        if let value = try? container.decode(String.self, forKey: key) {
-            return value
-        }
-        if let value = try? container.decodeNil(forKey: key) {
-            if value {
-                return JSONNull()
-            }
-        }
-        if var container = try? container.nestedUnkeyedContainer(forKey: key) {
-            return try decodeArray(from: &container)
-        }
-        if var container = try? container.nestedContainer(keyedBy: JSONCodingKey.self, forKey: key) {
-            return try decodeDictionary(from: &container)
-        }
-        throw decodingError(forCodingPath: container.codingPath)
-    }
-
-    static func decodeArray(from container: inout UnkeyedDecodingContainer) throws -> [Any] {
-        var arr: [Any] = []
-        while !container.isAtEnd {
-            let value = try decode(from: &container)
-            arr.append(value)
-        }
-        return arr
-    }
-
-    static func decodeDictionary(from container: inout KeyedDecodingContainer<JSONCodingKey>) throws -> [String: Any] {
-        var dict = [String: Any]()
-        for key in container.allKeys {
-            let value = try decode(from: &container, forKey: key)
-            dict[key.stringValue] = value
-        }
-        return dict
-    }
-
-    static func encode(to container: inout UnkeyedEncodingContainer, array: [Any]) throws {
-        for value in array {
-            if let value = value as? Bool {
-                try container.encode(value)
-            } else if let value = value as? Int64 {
-                try container.encode(value)
-            } else if let value = value as? Double {
-                try container.encode(value)
-            } else if let value = value as? String {
-                try container.encode(value)
-            } else if value is JSONNull {
-                try container.encodeNil()
-            } else if let value = value as? [Any] {
-                var container = container.nestedUnkeyedContainer()
-                try encode(to: &container, array: value)
-            } else if let value = value as? [String: Any] {
-                var container = container.nestedContainer(keyedBy: JSONCodingKey.self)
-                try encode(to: &container, dictionary: value)
-            } else {
-                throw encodingError(forValue: value, codingPath: container.codingPath)
-            }
-        }
-    }
-
-    static func encode(to container: inout KeyedEncodingContainer<JSONCodingKey>, dictionary: [String: Any]) throws {
-        for (key, value) in dictionary {
-            let key = JSONCodingKey(stringValue: key)!
-            if let value = value as? Bool {
-                try container.encode(value, forKey: key)
-            } else if let value = value as? Int64 {
-                try container.encode(value, forKey: key)
-            } else if let value = value as? Double {
-                try container.encode(value, forKey: key)
-            } else if let value = value as? String {
-                try container.encode(value, forKey: key)
-            } else if value is JSONNull {
-                try container.encodeNil(forKey: key)
-            } else if let value = value as? [Any] {
-                var container = container.nestedUnkeyedContainer(forKey: key)
-                try encode(to: &container, array: value)
-            } else if let value = value as? [String: Any] {
-                var container = container.nestedContainer(keyedBy: JSONCodingKey.self, forKey: key)
-                try encode(to: &container, dictionary: value)
-            } else {
-                throw encodingError(forValue: value, codingPath: container.codingPath)
-            }
-        }
-    }
-
-    static func encode(to container: inout SingleValueEncodingContainer, value: Any) throws {
-        if let value = value as? Bool {
-            try container.encode(value)
-        } else if let value = value as? Int64 {
-            try container.encode(value)
-        } else if let value = value as? Double {
-            try container.encode(value)
-        } else if let value = value as? String {
-            try container.encode(value)
-        } else if value is JSONNull {
-            try container.encodeNil()
-        } else {
-            throw encodingError(forValue: value, codingPath: container.codingPath)
-        }
-    }
-
-    public required init(from decoder: Decoder) throws {
-        if var arrayContainer = try? decoder.unkeyedContainer() {
-            self.value = try JSONAny.decodeArray(from: &arrayContainer)
-        } else if var container = try? decoder.container(keyedBy: JSONCodingKey.self) {
-            self.value = try JSONAny.decodeDictionary(from: &container)
-        } else {
-            let container = try decoder.singleValueContainer()
-            self.value = try JSONAny.decode(from: container)
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        if let arr = self.value as? [Any] {
-            var container = encoder.unkeyedContainer()
-            try JSONAny.encode(to: &container, array: arr)
-        } else if let dict = self.value as? [String: Any] {
-            var container = encoder.container(keyedBy: JSONCodingKey.self)
-            try JSONAny.encode(to: &container, dictionary: dict)
-        } else {
-            var container = encoder.singleValueContainer()
-            try JSONAny.encode(to: &container, value: self.value)
-        }
     }
 }
