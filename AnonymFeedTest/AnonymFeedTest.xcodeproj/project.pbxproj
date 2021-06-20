@@ -30,6 +30,7 @@
 		05656BA2267E38F100F4CE92 /* ImageLoadedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656BA1267E38F100F4CE92 /* ImageLoadedView.swift */; };
 		05656BA4267F44C600F4CE92 /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656BA3267F44C600F4CE92 /* UIScrollView+Extensions.swift */; };
 		05656BA6267F4DA700F4CE92 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656BA5267F4DA700F4CE92 /* APIError.swift */; };
+		05656BA8267F57BA00F4CE92 /* Sequency+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656BA7267F57BA00F4CE92 /* Sequency+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		05656BA1267E38F100F4CE92 /* ImageLoadedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadedView.swift; sourceTree = "<group>"; };
 		05656BA3267F44C600F4CE92 /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
 		05656BA5267F4DA700F4CE92 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		05656BA7267F57BA00F4CE92 /* Sequency+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequency+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 				05656B8D267E188D00F4CE92 /* UIView+layout.swift */,
 				05656B95267E234200F4CE92 /* UIViewController+Extensions.swift */,
 				05656BA3267F44C600F4CE92 /* UIScrollView+Extensions.swift */,
+				05656BA7267F57BA00F4CE92 /* Sequency+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			files = (
 				05656B99267E25B200F4CE92 /* HomeFeedSegmentView.swift in Sources */,
 				05656B92267E18D400F4CE92 /* ServiceLocator.swift in Sources */,
+				05656BA8267F57BA00F4CE92 /* Sequency+Extensions.swift in Sources */,
 				05656B82267E16AB00F4CE92 /* HomeFeedWorker.swift in Sources */,
 				05656B94267E226900F4CE92 /* APIAlertConfig.swift in Sources */,
 				05656B8B267E17C800F4CE92 /* APIModel.swift in Sources */,

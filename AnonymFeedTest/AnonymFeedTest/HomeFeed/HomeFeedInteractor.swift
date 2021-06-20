@@ -47,6 +47,14 @@ extension HomeFeedInteractor {
                 presenter?.presentData(response: .stopActivity)
             }
             
+            
+        case .getBySegmentAction(let index):
+            if let action = HomeFeedSegmentItem.allCases[safe: index] {
+                // Here need clear presenter data
+                presenter?.presentData(response: .clearData)
+                fetch(endPoint: .orderBy(action.rawValue))
+            }
+            
         }
     }
     

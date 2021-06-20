@@ -15,6 +15,7 @@ enum HomeFeed {
       enum RequestType {
         case getFirstPosts
         case getAfterPosts
+        case getBySegmentAction(index: Int)
       }
     }
     struct Response {
@@ -22,6 +23,7 @@ enum HomeFeed {
         case prepareHomeFeedModels(items: [Item])
         case showAlert(alertConfig: APIAlertConfig)
         case stopActivity
+        case clearData
       }
     }
     struct ViewModel {

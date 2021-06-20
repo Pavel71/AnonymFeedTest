@@ -69,7 +69,7 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         $0.tableFooterView = activityIndicator
         $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: HomeFeedTableViewCell.reusID)
         // Need to make a sevrela cells i gess or i can put all content in one cell
-        
+        $0.separatorStyle = .none
         return $0
     }(UITableView(frame: .zero, style: .plain))
     
@@ -83,7 +83,7 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         setUpViews()
         setUpConstraints()
         
-        
+        setUpSegmentActions()
         updateSnapShot(data: [])
         fetchFirstPosts()
         
@@ -103,8 +103,9 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
             updateSnapShot(data: models)
             
         case .showAlert(let alertConfig):
+            activityIndicator.stopAnimating()
             showAlert(apiAlertConfig: alertConfig) {[weak self] okAction in
-                self?.stopActivity()
+                self?.isFetching = false
             }
             
         case .stopActivity:
@@ -127,6 +128,13 @@ extension HomeFeedViewController {
     private func stopActivity() {
         self.isFetching = false
         activityIndicator.stopAnimating()
+    }
+    
+    private func setUpSegmentActions() {
+        segmentView.didTapSegmentAction = {[weak self] index in
+            self?.interactor?.makeRequest(request: .getBySegmentAction(index: index))
+        }
+
     }
 }
 
@@ -199,13 +207,12 @@ extension HomeFeedViewController: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        if scrollView.isNearBottomEdge(edgeOffset: 20) {
+        if scrollView.isNearBottomEdge(edgeOffset: 10) {
 
             if  self.isFetching == false {
                 startActivity()
                 self.isFetching = true
 
-                print("Fetching new page")
                 interactor?.makeRequest(request: .getAfterPosts)
             }
 

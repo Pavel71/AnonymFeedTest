@@ -186,6 +186,8 @@ class HomeFeedTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpViews()
         setUpConstraints()
+        self.selectionStyle = .none
+        
     }
     
     required init?(coder: NSCoder) {

@@ -27,6 +27,8 @@ class HomeFeedPresenter: HomeFeedPresentationLogic {
             viewController?.displayData(viewModel: .showAlert(alertConfig: alertConfig))
         case .stopActivity:
             viewController?.displayData(viewModel: .stopActivity)
+        case .clearData:
+            tableData.removeAll()
         }
     }
     

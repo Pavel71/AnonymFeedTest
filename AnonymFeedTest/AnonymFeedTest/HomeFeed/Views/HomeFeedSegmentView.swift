@@ -9,9 +9,9 @@ import UIKit
 
 
 enum HomeFeedSegmentItem: String,CaseIterable {
-    case mostPopular = "Популярное"
-    case mostComented = "Коментируют"
-    case createdAt = "Дата"
+    case mostPopular = "mostPopular"
+    case mostComented = "mostCommented"
+    case createdAt = "createdAt"
 }
 
 class HomeFeedSegmentView: UIView {
@@ -20,6 +20,13 @@ class HomeFeedSegmentView: UIView {
         $0.addTarget(self, action: #selector(handleSegmentAction), for: .valueChanged)
         return $0
     }(UISegmentedControl(items: HomeFeedSegmentItem.allCases.map { $0.rawValue }))
+    
+    
+    // MARK: - Outputs
+    
+    var didTapSegmentAction: ((Int) -> Void)?
+
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,5 +53,6 @@ class HomeFeedSegmentView: UIView {
 extension HomeFeedSegmentView {
     @objc private func handleSegmentAction(segment: UISegmentedControl) {
         print("Handle segment Tapped")
+        didTapSegmentAction?(segment.selectedSegmentIndex)
     }
 }

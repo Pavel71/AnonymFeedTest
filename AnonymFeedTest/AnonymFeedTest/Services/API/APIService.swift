@@ -50,9 +50,6 @@ class APIService {
         guard let url = endPoint.absoluteURL else { return }
         print("URl",url)
         URLSession.shared.dataTask(with: url) { data, response, error in
-            print("Data",data)
-            print("Error",error)
-            print("Response",response)
             
             guard let httpResponse = response as? HTTPURLResponse,
                   200...299 ~= httpResponse.statusCode else {
