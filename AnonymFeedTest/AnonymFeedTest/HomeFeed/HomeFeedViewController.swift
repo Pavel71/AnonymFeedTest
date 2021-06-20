@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol HomeFeedDisplayLogic: class {
+protocol HomeFeedDisplayLogic: AnyObject {
     func displayData(viewModel: HomeFeed.Model.ViewModel.ViewModelData)
 }
 

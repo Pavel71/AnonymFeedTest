@@ -39,7 +39,7 @@ class HomeFeedTableViewCell: UITableViewCell {
         $0.axis = .vertical
         $0.distribution = .fill
         $0.alignment = .fill
-        $0.spacing = 5
+        $0.spacing = 10
         return $0
     }(UIStackView())
     
@@ -47,11 +47,15 @@ class HomeFeedTableViewCell: UITableViewCell {
         $0.axis = .horizontal
         $0.distribution = .fill
         $0.alignment = .fill
-        $0.spacing = 5
+        $0.spacing = 10
         return $0
     }(UIStackView())
     
     private lazy var contentStackView: UIStackView = {
+        $0.axis = .vertical
+        $0.distribution = .fill
+        $0.alignment = .fill
+        $0.spacing = 5
         return $0
     }(UIStackView())
     
@@ -70,7 +74,7 @@ class HomeFeedTableViewCell: UITableViewCell {
         $0.image = UIImage(systemName: "person.circle.fill")
         $0.tintColor = .black
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 30
+        $0.layer.cornerRadius = 10
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(ImageLoadedView())
@@ -118,18 +122,41 @@ class HomeFeedTableViewCell: UITableViewCell {
         return label
     }
     
+    private func makeContentLabel(text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.black
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.lineBreakMode = .byClipping
+        label.text = text
+        label.numberOfLines = 0
+        label.textAlignment = .left
+        return label
+    }
+    
     
     // MARK: - Content UI
-    private lazy var postViewContentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private lazy var postViewImageView: ImageLoadedView = {
-        let view = ImageLoadedView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+
+    private lazy var contentImageView: ImageLoadedView = {
+//        $0.image = UIImage(systemName: "globe")
+        $0.constrainHeight(constant: 234)
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 10
+        $0.tintColor = .black
+        $0.isHidden = true
+        return $0
+    }(ImageLoadedView())
+    
+    private lazy var contentlabel: UILabel = {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = UIColor.black
+        $0.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        $0.lineBreakMode = .byClipping
+        $0.numberOfLines = 0
+        $0.textAlignment = .left
+        return $0
+    }(UILabel())
     private lazy  var postViewVideoView: AVPlayerLayer = {
         let layer = AVPlayerLayer(player: self.videoPlayer)
         layer.videoGravity = .resizeAspectFill
@@ -156,6 +183,23 @@ class HomeFeedTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+   
+        viewsLabel.text = nil
+        likesLabel.text = nil
+        commentsLabel.text = nil
+        replayLabel.text = nil
+        sharesLabel.text = nil
+
+        userNameLabel.text = nil
+        userImageView.image = UIImage(systemName: "person.circle.fill")
+        
+        // clear content
+        contentImageView.image = nil
+        contentImageView.isHidden = true
+        contentlabel.text = nil
+    }
     private func setUpViews() {
         addSubview(mainStackView)
         configureInitView()
@@ -176,8 +220,14 @@ class HomeFeedTableViewCell: UITableViewCell {
         topStackView.addArrangedSubview(userImageView)
         topStackView.addArrangedSubview(userNameLabel)
         configureStatHStack()
+        
+        configureContentStack()
     }
     
+    private func configureContentStack() {
+        contentStackView.addArrangedSubview(contentImageView)
+        contentStackView.addArrangedSubview(contentlabel)
+    }
     
     private func configureStatHStack() {
         let viewshStack = UIStackView(arrangedSubviews: [viewsImage,viewsLabel])
@@ -200,9 +250,37 @@ extension HomeFeedTableViewCell {
     
     
     func configure(model: HomeFeedTableViewCellModelable) {
+        // USer
         userNameLabel.text = model.userName
         userImageView.downloadImageFrom(withUrl: model.userImageUrl ?? "")
         
+        // content
+        model.contents.forEach {
+            // Need to place content in vertical stack view
+            switch $0.type {
+            case .audio:
+                print("make UI Audio")
+            case .image:
+                contentImageView.downloadImageFrom(withUrl: $0.data?.small?.url ?? "")
+                contentImageView.isHidden = false
+            case .imageGIF:
+                print("make UI Gif")
+            case .tags:
+                print("Make Ui Tag")
+            case .text:
+                print("make UI Text",$0.data?.value)
+                let Oldtext = contentlabel.text ?? ""
+                let newText = $0.data?.value ?? ""
+                contentlabel.text = Oldtext + "\n" + newText
+            case .video:
+            print("make Ui Video")
+            case .none:
+                break
+            }
+            
+        }
+        
+        // Stats
         viewsLabel.text = String(describing: model.stats?.views?.count ?? 0)
         likesLabel.text = String(describing: model.stats?.likes?.count ?? 0)
         commentsLabel.text = String(describing: model.stats?.comments?.count ?? 0)
