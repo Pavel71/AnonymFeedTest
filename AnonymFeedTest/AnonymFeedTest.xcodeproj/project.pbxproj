@@ -25,6 +25,9 @@
 		05656B96267E234200F4CE92 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B95267E234200F4CE92 /* UIViewController+Extensions.swift */; };
 		05656B99267E25B200F4CE92 /* HomeFeedSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B98267E25B200F4CE92 /* HomeFeedSegmentView.swift */; };
 		05656B9B267E296E00F4CE92 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B9A267E296E00F4CE92 /* HomeFeedTableViewCell.swift */; };
+		05656B9D267E331B00F4CE92 /* DataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B9C267E331B00F4CE92 /* DataConverter.swift */; };
+		05656B9F267E33EA00F4CE92 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656B9E267E33EA00F4CE92 /* ApiRequest.swift */; };
+		05656BA2267E38F100F4CE92 /* ImageLoadedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05656BA1267E38F100F4CE92 /* ImageLoadedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +51,9 @@
 		05656B95267E234200F4CE92 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		05656B98267E25B200F4CE92 /* HomeFeedSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedSegmentView.swift; sourceTree = "<group>"; };
 		05656B9A267E296E00F4CE92 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
+		05656B9C267E331B00F4CE92 /* DataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConverter.swift; sourceTree = "<group>"; };
+		05656B9E267E33EA00F4CE92 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
+		05656BA1267E38F100F4CE92 /* ImageLoadedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,7 @@
 		05656B61267E14B500F4CE92 /* AnonymFeedTest */ = {
 			isa = PBXGroup;
 			children = (
+				05656BA0267E38E300F4CE92 /* Classes */,
 				05656B8C267E184B00F4CE92 /* Extensions */,
 				05656B88267E17A500F4CE92 /* Services */,
 				05656B77267E15B100F4CE92 /* App */,
@@ -135,6 +142,7 @@
 			children = (
 				05656B89267E17B900F4CE92 /* API */,
 				05656B91267E18D400F4CE92 /* ServiceLocator.swift */,
+				05656B9C267E331B00F4CE92 /* DataConverter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -145,6 +153,7 @@
 				05656B8F267E18CA00F4CE92 /* APIService.swift */,
 				05656B8A267E17C800F4CE92 /* APIModel.swift */,
 				05656B93267E226900F4CE92 /* APIAlertConfig.swift */,
+				05656B9E267E33EA00F4CE92 /* ApiRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -165,6 +174,14 @@
 				05656B9A267E296E00F4CE92 /* HomeFeedTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		05656BA0267E38E300F4CE92 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				05656BA1267E38F100F4CE92 /* ImageLoadedView.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,14 +261,17 @@
 				05656B84267E16AB00F4CE92 /* HomeFeedModels.swift in Sources */,
 				05656B9B267E296E00F4CE92 /* HomeFeedTableViewCell.swift in Sources */,
 				05656B85267E16AB00F4CE92 /* HomeFeedViewController.swift in Sources */,
+				05656B9D267E331B00F4CE92 /* DataConverter.swift in Sources */,
 				05656B90267E18CA00F4CE92 /* APIService.swift in Sources */,
 				05656B63267E14B500F4CE92 /* AppDelegate.swift in Sources */,
 				05656B65267E14B500F4CE92 /* SceneDelegate.swift in Sources */,
 				05656B8E267E188D00F4CE92 /* UIView+layout.swift in Sources */,
 				05656B96267E234200F4CE92 /* UIViewController+Extensions.swift in Sources */,
+				05656B9F267E33EA00F4CE92 /* ApiRequest.swift in Sources */,
 				05656B86267E16AB00F4CE92 /* HomeFeedInteractor.swift in Sources */,
 				05656B81267E16AB00F4CE92 /* HomeFeedPresenter.swift in Sources */,
 				05656B83267E16AB00F4CE92 /* HomeFeedRouter.swift in Sources */,
+				05656BA2267E38F100F4CE92 /* ImageLoadedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

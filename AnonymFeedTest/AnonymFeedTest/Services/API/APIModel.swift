@@ -1,10 +1,3 @@
-//
-//  APIModel.swift
-//  AnonymFeedTest
-//
-//  Created by Павел Мишагин on 19.06.2021.
-//
-
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
@@ -54,7 +47,8 @@ struct Author: Codable {
     let id: String
     let url: URLEnum?
     let name: String
-    let banner, photo: Banner?
+    let banner: Photo?
+    let photo: Photo
     let gender: Gender
     let isHidden, isBlocked, allowNewSubscribers, showSubscriptions: Bool
     let showSubscribers, isMessagingAllowed: Bool
@@ -71,15 +65,15 @@ struct Auth: Codable {
     let lastSeenAt, level: Int
 }
 
-// MARK: - Banner
-struct Banner: Codable {
-    let type: BannerType
+// MARK: - Photo
+struct Photo: Codable {
+    let type: PhotoType
     let id: String
-    let data: BannerData
+    let data: PhotoData
 }
 
-// MARK: - BannerData
-struct BannerData: Codable {
+// MARK: - PhotoData
+struct PhotoData: Codable {
     let extraSmall, small: ExtraLarge
     let medium, large: ExtraLarge?
     let original: ExtraLarge
@@ -97,7 +91,7 @@ struct Size: Codable {
     let width, height: Int
 }
 
-enum BannerType: String, Codable {
+enum PhotoType: String, Codable {
     case audio = "AUDIO"
     case image = "IMAGE"
     case imageGIF = "IMAGE_GIF"
@@ -138,7 +132,7 @@ struct Awards: Codable {
 // MARK: - Content
 struct Content: Codable {
     let data: ContentData
-    let type: BannerType
+    let type: PhotoType
     let id: String?
 }
 
@@ -156,7 +150,7 @@ struct ContentData: Codable {
 
 // MARK: - PreviewImage
 struct PreviewImage: Codable {
-    let type: BannerType
+    let type: PhotoType
     let id: String
     let data: PreviewImageData
 }
@@ -192,7 +186,8 @@ struct Comments: Codable {
 
 // MARK: - TimeLeftToSpace
 struct TimeLeftToSpace: Codable {
-    let count, maxCount: JSONNull?
+    let count: Int?
+    let maxCount: JSONNull?
     let my: Bool
 }
 

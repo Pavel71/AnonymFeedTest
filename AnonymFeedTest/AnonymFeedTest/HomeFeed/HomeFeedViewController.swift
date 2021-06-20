@@ -12,6 +12,12 @@ protocol HomeFeedDisplayLogic: class {
     func displayData(viewModel: HomeFeed.Model.ViewModel.ViewModelData)
 }
 
+
+
+enum HomeFeedTableSection: CaseIterable {
+    case feed
+}
+
 class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     
     var interactor: HomeFeedBusinessLogic?
@@ -51,9 +57,16 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         return $0
     }(UIActivityIndicatorView(style: .medium))
     
+    
+    private lazy var dataSource = makeDataSource()
+    
     private lazy var tableView: UITableView = {
+        $0.estimatedRowHeight = 100
+        $0.rowHeight = UITableView.automaticDimension
         $0.tableFooterView = activityIndicator
         $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: HomeFeedTableViewCell.reusID)
+        // Need to make a sevrela cells i gess or i can put all content in one cell
+        
         return $0
     }(UITableView(frame: .zero, style: .plain))
     
@@ -67,6 +80,8 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         setUpViews()
         setUpConstraints()
         
+        
+        updateSnapShot(data: [])
         fetchFirstPosts()
         
     }
@@ -80,9 +95,9 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     
     func displayData(viewModel: HomeFeed.Model.ViewModel.ViewModelData) {
         switch viewModel {
-        case .updateTable:
+        case .updateTable(let models):
             stopActivity()
-            print("Update Table")
+            updateSnapShot(data: models)
         case .showAlert(let alertConfig):
             showAlert(apiAlertConfig: alertConfig)
             stopActivity()
@@ -128,5 +143,36 @@ extension HomeFeedViewController {
             leading: view.leadingAnchor,
             bottom: view.bottomAnchor,
             trailing: view.trailingAnchor)
+    }
+}
+
+// MARK: - Data Source
+extension HomeFeedViewController {
+    
+    private func makeDataSource() -> UITableViewDiffableDataSource<HomeFeedTableSection,HomeFeedTableViewCellModel> {
+        
+        let dataSource = UITableViewDiffableDataSource<HomeFeedTableSection, HomeFeedTableViewCellModel>(tableView: tableView) { tableView, idx, model in
+            
+            if let cell = tableView.dequeueReusableCell(withIdentifier: HomeFeedTableViewCell.reusID) as? HomeFeedTableViewCell {
+                
+                cell.configure(model: model)
+               
+                return cell
+            }
+            return UITableViewCell()
+        }
+        
+        return dataSource
+    }
+    
+    
+    private func updateSnapShot(data: [HomeFeedTableViewCellModel]) {
+        
+        var snapShot = NSDiffableDataSourceSnapshot<HomeFeedTableSection, HomeFeedTableViewCellModel>()
+        snapShot.appendSections(HomeFeedTableSection.allCases)
+        snapShot.appendItems(data,toSection: .feed)
+        
+        
+        dataSource.apply(snapShot)
     }
 }

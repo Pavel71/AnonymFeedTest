@@ -17,6 +17,8 @@ class HomeFeedInteractor: HomeFeedBusinessLogic {
   var presenter: HomeFeedPresentationLogic?
   var api: APIService?
     
+    private var apiRequest = ApiRequest()
+    
     init() {
         api = ServiceLocator.shared.getService()
     }
@@ -34,17 +36,16 @@ extension HomeFeedInteractor {
         switch request {
         case .getFirstPosts:
             print("Get Api Request")
-            api?.fetch(from: .first(APIConstants.feedItemsCount), completion: {[weak self] result in
-                
+            api?.fetch(from: .first(APIConstants.feedItemsCount), completion: {[weak self]
+                result in
                 switch result {
                 case .failure(let error):
-                    print("Error show alert")
+                    
                     self?.showAlert(alertConfig: .init(title: "First Error", message: error.localizedDescription))
                 case .success(let apiData):
-                    print("Api Model data",apiData)
-                    print("Count",apiData.data.items.count)
-                    
-                    self?.presenter?.presentData(response: .prepareHomeFeedModels)
+        
+                    self?.apiRequest.cursor = apiData.data.cursor
+                    self?.presenter?.presentData(response: .prepareHomeFeedModels(items: apiData.data.items))
                 }
             })
         }

@@ -17,9 +17,9 @@ class HomeFeedPresenter: HomeFeedPresentationLogic {
     
     func presentData(response: HomeFeed.Model.Response.ResponseType) {
         switch response {
-        case .prepareHomeFeedModels:
-            print("Prepare Models")
-            viewController?.displayData(viewModel: .updateTable)
+        case .prepareHomeFeedModels(let apiItems):
+            let models = apiItems.map(DataConverter.toHomeFeedTableCellModel(item:))
+            viewController?.displayData(viewModel: .updateTable(cellModels: models))
         case .showAlert(let alertConfig):
             viewController?.displayData(viewModel: .showAlert(alertConfig: alertConfig))
         }

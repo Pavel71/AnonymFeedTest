@@ -18,16 +18,48 @@ enum HomeFeed {
     }
     struct Response {
       enum ResponseType {
-        case prepareHomeFeedModels
+        case prepareHomeFeedModels(items: [Item])
         case showAlert(alertConfig: APIAlertConfig)
       }
     }
     struct ViewModel {
       enum ViewModelData {
-        case updateTable
+        case updateTable(cellModels: [HomeFeedTableViewCellModel])
         case showAlert(alertConfig: APIAlertConfig)
       }
     }
   }
   
+}
+
+// MARK: Models
+
+
+struct HomeFeedTableViewCellModel: HomeFeedTableViewCellModelable {
+    
+    var id: String
+    
+    var userName: String?
+    
+    var userImageUrl: String?
+    
+    var contents: [Content]
+    
+    var stats: Stats
+    
+    var isMyFavorit: Bool
+    
+    
+}
+
+extension HomeFeedTableViewCellModel: Hashable {
+    
+    static func == (lhs: HomeFeedTableViewCellModel, rhs: HomeFeedTableViewCellModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    
 }
