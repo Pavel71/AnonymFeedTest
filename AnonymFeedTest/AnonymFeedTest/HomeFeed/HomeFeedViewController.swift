@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol HomeFeedDisplayLogic: AnyObject {
     func displayData(viewModel: HomeFeed.Model.ViewModel.ViewModelData)
@@ -75,6 +76,8 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     
     private lazy var segmentView = HomeFeedSegmentView()
     
+    
+    
     // MARK: View lifecycle
     
     override func viewDidLoad() {
@@ -132,11 +135,16 @@ extension HomeFeedViewController {
     
     private func setUpSegmentActions() {
         segmentView.didTapSegmentAction = {[weak self] index in
+            self?.startActivity()
             self?.interactor?.makeRequest(request: .getBySegmentAction(index: index))
         }
 
     }
+
+
 }
+
+
 
 // MARK: - Set Up Views
 extension HomeFeedViewController {
@@ -173,7 +181,7 @@ extension HomeFeedViewController {
             if let cell = tableView.dequeueReusableCell(withIdentifier: HomeFeedTableViewCell.reusID) as? HomeFeedTableViewCell {
                 
                 cell.configure(model: model)
-               
+
                 return cell
             }
             return UITableViewCell()
@@ -207,7 +215,7 @@ extension HomeFeedViewController: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        if scrollView.isNearBottomEdge(edgeOffset: 10) {
+        if scrollView.isNearBottomEdge(edgeOffset: 0) {
 
             if  self.isFetching == false {
                 startActivity()
