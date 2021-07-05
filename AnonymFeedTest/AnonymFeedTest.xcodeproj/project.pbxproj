@@ -44,6 +44,7 @@
 		05AAEA112692FB8E00B3698E /* VstackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AAEA102692FB8E00B3698E /* VstackController.swift */; };
 		05AAEA132692FCED00B3698E /* UIstackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AAEA122692FCED00B3698E /* UIstackView+Extension.swift */; };
 		05AAEA1D269326D500B3698E /* AnonymFeedTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AAEA1C269326D500B3698E /* AnonymFeedTestTests.swift */; };
+		05AAEA252693272C00B3698E /* ApiServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AAEA242693272C00B3698E /* ApiServiceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		05AAEA1A269326D500B3698E /* AnonymFeedTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnonymFeedTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		05AAEA1C269326D500B3698E /* AnonymFeedTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonymFeedTestTests.swift; sourceTree = "<group>"; };
 		05AAEA1E269326D500B3698E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		05AAEA242693272C00B3698E /* ApiServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +273,7 @@
 		05AAEA1B269326D500B3698E /* AnonymFeedTestTests */ = {
 			isa = PBXGroup;
 			children = (
+				05AAEA242693272C00B3698E /* ApiServiceTest.swift */,
 				05AAEA1C269326D500B3698E /* AnonymFeedTestTests.swift */,
 				05AAEA1E269326D500B3698E /* Info.plist */,
 			);
@@ -417,6 +420,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05AAEA252693272C00B3698E /* ApiServiceTest.swift in Sources */,
 				05AAEA1D269326D500B3698E /* AnonymFeedTestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
