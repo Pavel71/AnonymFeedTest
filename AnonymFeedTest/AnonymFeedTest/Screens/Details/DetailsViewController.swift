@@ -18,7 +18,7 @@ class DetailsViewController: VstackController, DetailsDisplayLogic {
     
     private lazy var userView = DetailsUserView()
     private lazy var postStatsView = DetailsPostStatsView()
-    
+    private lazy var postContentView = DetailsContentView()
     
     
     var interactor: DetailsBusinessLogic?
@@ -51,10 +51,7 @@ class DetailsViewController: VstackController, DetailsDisplayLogic {
         presenter.viewController  = viewController
         router.viewController     = viewController
     }
-    
-    // MARK: Routing
-    
-    
+
     
     // MARK: View lifecycle
     
@@ -69,6 +66,10 @@ class DetailsViewController: VstackController, DetailsDisplayLogic {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
     func displayData(viewModel: Details.Model.ViewModel.ViewModelData) {
         
     }
@@ -77,6 +78,9 @@ class DetailsViewController: VstackController, DetailsDisplayLogic {
         view.backgroundColor = .white
         contentView.backgroundColor = .white
         addView(userView)
+        addSpacer(20)
+        addView(postContentView)
+        addView(postStatsView)
     }
     
 }
@@ -87,5 +91,6 @@ extension DetailsViewController {
     func configureModel(model: HomeFeedTableViewCellModel) {
         
         userView.configure(userImageUrl: model.userImageUrl ?? "", userName: model.userName ?? "")
+        postContentView.configure(contents: model.contents)
     }
 }

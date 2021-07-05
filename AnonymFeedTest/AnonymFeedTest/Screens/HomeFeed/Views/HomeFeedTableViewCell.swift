@@ -469,7 +469,8 @@ extension HomeFeedTableViewCell {
                 
             case .tags:
                 taglabel.isHidden  = false
-                taglabel.text = $0.data?.value ?? ""
+                let tagString = $0.data?.values?.joined(separator: "#") ?? ""
+                taglabel.text = "#\(tagString)"
             case .text:
                 
                 let oldtext = contentlabel.text ?? ""
