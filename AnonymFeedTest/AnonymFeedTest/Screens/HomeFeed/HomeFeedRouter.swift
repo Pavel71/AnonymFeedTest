@@ -9,7 +9,8 @@
 import UIKit
 
 protocol HomeFeedRoutingLogic {
-
+    
+    func openDetails(model: HomeFeedTableViewCellModel)
 }
 
 class HomeFeedRouter: NSObject, HomeFeedRoutingLogic {
@@ -17,5 +18,8 @@ class HomeFeedRouter: NSObject, HomeFeedRoutingLogic {
   weak var viewController: HomeFeedViewController?
   
   // MARK: Routing
-  
+    func openDetails(model: HomeFeedTableViewCellModel) {
+        let detailsVc = DetailsViewController(model: model)
+        viewController?.navigationController?.pushViewController(detailsVc, animated: true)
+    }
 }

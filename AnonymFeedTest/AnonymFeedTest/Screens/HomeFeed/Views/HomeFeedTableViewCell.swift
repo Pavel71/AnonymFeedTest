@@ -236,6 +236,8 @@ class HomeFeedTableViewCell: UITableViewCell {
         return $0
     }(ImageLoadedView())
     
+
+    
     
     
     // Need to make stats Stack View
@@ -423,6 +425,7 @@ extension HomeFeedTableViewCell {
     func stopPlayer() {
         player.replaceCurrentItem(with: nil)
     }
+    
 
     @objc func playerDidFinishPlaying(sender: Notification) {
 

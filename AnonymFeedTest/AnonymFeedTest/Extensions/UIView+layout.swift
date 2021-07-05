@@ -127,3 +127,21 @@ extension UIView {
         viewConstraint.isActive = true
     }
 }
+// Hide and alpha
+extension UIView {
+    func hideWithAnimation(hidden: Bool, duration:Double = 0.4, complation: (() -> Void)? = nil) {
+        UIView.transition(with: self, duration: duration, options: .transitionCrossDissolve, animations: {
+            self.isHidden = hidden
+        }, completion: { _ in
+            complation?()
+        })
+    }
+    
+    func alphaWithAnimation(alpha: CGFloat, duration:Double = 0.4, complation: (() -> Void)? = nil) {
+        UIView.animate(withDuration: duration) {
+            self.alpha = alpha
+        } completion: { _ in
+            complation?()
+        }
+    }
+}

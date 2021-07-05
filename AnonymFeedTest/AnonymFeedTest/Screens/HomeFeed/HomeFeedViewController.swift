@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import AVKit
 
 protocol HomeFeedDisplayLogic: AnyObject {
     func displayData(viewModel: HomeFeed.Model.ViewModel.ViewModelData)
@@ -76,6 +77,16 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     
     private lazy var segmentView = HomeFeedSegmentView()
     
+    private lazy var emptyLabel: UILabel = {
+        $0.text = "Данных нет!"
+        $0.textAlignment = .center
+        $0.numberOfLines = 0
+        $0.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        $0.textColor = .lightGray
+        $0.isHidden = true
+        return $0
+    }(UILabel())
+    
     
     
     // MARK: View lifecycle
@@ -103,6 +114,9 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         switch viewModel {
         case .updateTable(let models):
             stopActivity()
+            
+            models.isEmpty ? setEmptyView() : hideEmptyView()
+            
             updateSnapShot(data: models)
             
         case .showAlert(let alertConfig):
@@ -116,6 +130,14 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
         }
     }
     
+    private func setEmptyView() {
+        emptyLabel.hideWithAnimation(hidden: false)
+    }
+    
+    private func hideEmptyView() {
+        emptyLabel.hideWithAnimation(hidden: true)
+    }
+    
 }
 
 // MARK: - Actions
@@ -126,6 +148,7 @@ extension HomeFeedViewController {
     }
     
     private func startActivity() {
+        hideEmptyView()
         activityIndicator.startAnimating()
     }
     private func stopActivity() {
@@ -152,6 +175,7 @@ extension HomeFeedViewController {
         view.backgroundColor = .white
         view.addSubview(segmentView)
         view.addSubview(tableView)
+        view.addSubview(emptyLabel)
     }
     
     private func setUpConstraints() {
@@ -168,6 +192,8 @@ extension HomeFeedViewController {
             leading: view.leadingAnchor,
             bottom: view.bottomAnchor,
             trailing: view.trailingAnchor)
+        
+        emptyLabel.centerInSuperview()
     }
 }
 
@@ -207,7 +233,12 @@ extension HomeFeedViewController {
 extension HomeFeedViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let cell = tableView.cellForRow(at: indexPath) as?  HomeFeedTableViewCell,
+           let model = dataSource.itemIdentifier(for: indexPath) {
+            cell.stopPlayer()
+            router?.openDetails(model: model)
+        }
+        print("Select Cell",indexPath.row)
     }
     
     // MARK: - Scroll View
