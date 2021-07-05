@@ -360,10 +360,11 @@ extension HomeFeedTableViewCell {
         case .paused:
             print("need Activate and play")
             player.play()
-            audioButton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+            setPlayButtonStyleStop(button: audioButton)
+
         case .playing:
             print("need set pause")
-            audioButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+            setPlayButtonStylePlay(button: audioButton)
             player.pause()
         case .waitingToPlayAtSpecifiedRate:
             print("HS")
@@ -378,19 +379,31 @@ extension HomeFeedTableViewCell {
         case .paused:
             print("need Activate and play")
             player.play()
-            videoButton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+            setPlayButtonStyleStop(button: videoButton)
         
             previewVideoImage.isHidden = true
 
         case .playing:
             print("need set pause")
-            videoButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+            setPlayButtonStylePlay(button: videoButton)
+            
             previewVideoImage.isHidden = false
             player.pause()
         case .waitingToPlayAtSpecifiedRate:
             print("HS")
        
         }
+    }
+    
+    
+    private func setPlayButtonStyleStop(button: UIButton) {
+        button.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+        button.alpha = 0.2
+    }
+    
+    private func setPlayButtonStylePlay(button: UIButton) {
+        button.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+        button.alpha = 1
     }
         
 }

@@ -214,8 +214,12 @@ extension HomeFeedViewController: UITableViewDelegate {
 
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
 
-        if scrollView.isNearBottomEdge(edgeOffset: 0) {
+        // if bottom and scroll down
+        if scrollView.isNearBottomEdge(edgeOffset: 0),
+           translation.y < 0 {
 
             if  self.isFetching == false {
                 startActivity()
