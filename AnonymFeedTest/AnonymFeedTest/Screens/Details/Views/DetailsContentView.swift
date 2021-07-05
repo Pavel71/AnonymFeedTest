@@ -19,9 +19,8 @@ class DetailsContentView: UIView {
     // MARK: - UI Elements
     
     private lazy var contentImageView: ImageLoadedView = {
-        $0.constrainHeight(constant: 234)
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 10
+        $0.constrainHeight(constant: 400)
+    
         $0.tintColor = .black
         $0.isHidden = true
         return $0

@@ -92,5 +92,6 @@ extension DetailsViewController {
         
         userView.configure(userImageUrl: model.userImageUrl ?? "", userName: model.userName ?? "")
         postContentView.configure(contents: model.contents)
+        postStatsView.configure(stats: model.stats)
     }
 }

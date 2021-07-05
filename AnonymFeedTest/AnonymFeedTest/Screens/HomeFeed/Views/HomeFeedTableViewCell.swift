@@ -96,38 +96,8 @@ class HomeFeedTableViewCell: UITableViewCell {
     
     // MARK: - Stats UI
     
+    private lazy var statsView = DetailsPostStatsView()
     
-    private lazy var likesImage: UIImageView = makeStatImageView(systemImagename: "hand.thumbsup")
-    private lazy var likesLabel: UILabel = makeStatLabel()
-    
-    private lazy var replayImage: UIImageView = makeStatImageView(systemImagename: "repeat")
-    private lazy var replayLabel: UILabel = makeStatLabel()
-    
-    private lazy var commentsImage: UIImageView = makeStatImageView(systemImagename: "bubble.right")
-    private lazy var commentsLabel: UILabel = makeStatLabel()
-    
-    private lazy var sharesImage: UIImageView = makeStatImageView(systemImagename: "square.and.arrow.up")
-    private lazy var sharesLabel: UILabel = makeStatLabel()
-    
-    private lazy var viewsImage: UIImageView = makeStatImageView(systemImagename: "eye")
-    private lazy var viewsLabel: UILabel = makeStatLabel()
-    
-    private func makeStatImageView(systemImagename: String) -> UIImageView {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: systemImagename)
-        imageView.tintColor = .black
-        return imageView
-    }
-    
-    private func makeStatLabel() -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.secondaryLabel
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.lineBreakMode = .byClipping
-        return label
-    }
     
     private func makeContentLabel(text: String) -> UILabel {
         let label = UILabel()
@@ -261,11 +231,7 @@ class HomeFeedTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
    
-        viewsLabel.text = nil
-        likesLabel.text = nil
-        commentsLabel.text = nil
-        replayLabel.text = nil
-        sharesLabel.text = nil
+        statsView.clearLabels()
 
         userNameLabel.text = nil
         userImageView.image = UIImage(systemName: "person.circle.fill")
@@ -312,11 +278,11 @@ class HomeFeedTableViewCell: UITableViewCell {
     private func configureInitView() {
         mainStackView.addArrangedSubview(topStackView)
         mainStackView.addArrangedSubview(contentStackView)
-        mainStackView.addArrangedSubview(bottomStackView)
-        
+//        mainStackView.addArrangedSubview(bottomStackView)
+        mainStackView.addArrangedSubview(statsView)
         topStackView.addArrangedSubview(userImageView)
         topStackView.addArrangedSubview(userNameLabel)
-        configureStatHStack()
+//        configureStatHStack()
         
         configureContentStack()
     }
@@ -329,20 +295,6 @@ class HomeFeedTableViewCell: UITableViewCell {
         contentStackView.addArrangedSubview(taglabel)
     }
     
-    private func configureStatHStack() {
-        let viewshStack = UIStackView(arrangedSubviews: [viewsImage,viewsLabel])
-        let likesStack = UIStackView(arrangedSubviews: [likesImage,likesLabel])
-        let commentStack = UIStackView(arrangedSubviews: [commentsImage,commentsLabel])
-        let shareStack = UIStackView(arrangedSubviews: [sharesImage,sharesLabel])
-        let repliesStack = UIStackView(arrangedSubviews: [replayImage,replayLabel])
-        
-        [viewshStack,likesStack,commentStack,shareStack,repliesStack].forEach {
-            $0.spacing = 5
-            bottomStackView.addArrangedSubview($0)
-        }
-        
-        
-    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -501,11 +453,8 @@ extension HomeFeedTableViewCell {
         }
         
         // Stats
-        viewsLabel.text = String(describing: model.stats?.views?.count ?? 0)
-        likesLabel.text = String(describing: model.stats?.likes?.count ?? 0)
-        commentsLabel.text = String(describing: model.stats?.comments?.count ?? 0)
-        replayLabel.text = String(describing: model.stats?.replies?.count ?? 0)
-        sharesLabel.text = String(describing: model.stats?.shares?.count ?? 0)
+        statsView.configure(stats: model.stats)
+
 
     }
 }
