@@ -81,6 +81,9 @@ class DetailsViewController: VstackController, DetailsDisplayLogic {
         addSpacer(20)
         addView(postContentView)
         addView(postStatsView)
+        
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = .init(top: 0, leading: 5, bottom: 0, trailing: 5)
     }
     
 }

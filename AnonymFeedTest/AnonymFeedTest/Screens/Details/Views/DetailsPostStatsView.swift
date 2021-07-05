@@ -86,7 +86,7 @@ class DetailsPostStatsView: UIView {
     }
     
     private func setUpConstraints() {
-        statStackView.fillSuperview(padding: .init(top: 10, left: 10, bottom: 10, right: 10))
+        statStackView.fillSuperview()
     }
     
     func clearLabels() {

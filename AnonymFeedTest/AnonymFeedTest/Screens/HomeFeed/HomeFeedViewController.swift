@@ -108,6 +108,8 @@ class HomeFeedViewController: UIViewController, HomeFeedDisplayLogic {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        // need reload table
+        tableView.reloadData()
     }
     
     func displayData(viewModel: HomeFeed.Model.ViewModel.ViewModelData) {

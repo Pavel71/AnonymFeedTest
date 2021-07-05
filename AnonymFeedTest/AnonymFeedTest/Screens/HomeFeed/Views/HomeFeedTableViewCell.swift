@@ -375,6 +375,9 @@ extension HomeFeedTableViewCell {
     }
 
     func stopPlayer() {
+        setPlayButtonStylePlay(button: audioButton)
+        setPlayButtonStylePlay(button: videoButton)
+        player.pause()
         player.replaceCurrentItem(with: nil)
     }
     
